@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        /* 通用 */
+        :root {
+        --black:rgba(0,0,0,1);
+        --b90:rgba(0,0,0,.9);
+        --b80:rgba(0,0,0,.8);
+        --b70:rgba(0,0,0,.7);
+        --b60:rgba(0,0,0,.6);
+        --b50:rgba(0,0,0,.5);
+        --b40:rgba(0,0,0,.4);
+        --b30:rgba(0,0,0,.3);
+        --b20:rgba(0,0,0,.2);
+        --b10:rgba(0,0,0,.1);
+        --white:rgba(255,255,255,1);
+        --w90:rgba(255,255,255,.9);
+        --w80:rgba(255,255,255,.8);
+        --w70:rgba(255,255,255,.7);
+        --w60:rgba(255,255,255,.6);
+        --w50:rgba(255,255,255,.5);
+        --w40:rgba(255,255,255,.4);
+        --w30:rgba(255,255,255,.3);
+        --w20:rgba(255,255,255,.2);
+        --w10:rgba(255,255,255,.1);
+        --transparent:transparent;
+        }
+        
+        /* 初版的CSS樣式 */
+        body{background: url(images/L.png)no-repeat left/contain, url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
+        header{height: 80px;}
+        .vh100{height: 100vh;}
+        .left-bar{background-color: var(--black);}
+        .card-header{background-color: var(--w10);}
+        .btn-link{color: var(--w80);}
+        .list-group-item{color: var(--w60);}
+        .middle{max-width: 440px;}
+        .right-r{max-width: none;}
+        .tv-width{background-color: rgba(158,181,165,.5);width: 100%;max-width: 440px;border-radius: 5px;box-sizing: content-box;padding: 8px;}
+        .tv-box{background-color: var(--b10);padding-bottom: 101.5%;}
+        .tv{top: 0;bottom: 0;left: 0;right: 0;}
+        .tv > div{width:1920px;height:1080px;margin:-102px 0px 0px -1470px;transform-origin: top left;}
+        .bet-box{background-color: var(--b30);}
+        .talkbox{background-color: rgba(158,181,165,.5);width: 100%;max-width: 456px;height: 502px;padding: 8px;border-radius: 5px;scrollbar-width: none;-ms-overflow-style: none;}
+        .msg-box{background-color: var(--w50);height: calc(100% - 88px);}
+        .msg-box::-webkit-scrollbar {display: none;}
+        .msg-l,.msg-r{width: fit-content;max-width: 270px;margin-bottom: 16px;padding: 8px;border-radius: 5px;color: var(--w90);}
+        .msg-l{margin-right: auto;background-color: var(--b50);box-shadow: 5px 5px 10px #000;}
+        .msg-r{margin-left: auto;background-color: rgba(22,96,72,.5);box-shadow: -5px 5px 10px #000;}
+        .input-box{margin-top: 8px;}
+        .input-box textarea{width: calc(100% - 88px);max-height: 80px;min-height: 80px;border-radius: 5px;background: var(--w80);}
+        .input-box button{width: 80px;height: 80px;background: rgba(6,155,100,1);border: 2px solid var(--w50);border-radius: 5px;box-shadow: 10px 10px 10px var(--b50) inset,-10px -10px 10px var(--b60) inset;cursor: pointer;color: var(--w80);}
+        
+        /* 預測欄位 */
+        .predict-box{height: 40px;background: rgb(0,0,0);background: -moz-linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(61,61,61,1) 56%, rgba(139,139,139,1) 77%, rgba(0,6,2,1) 100%);background: -webkit-linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(61,61,61,1) 56%, rgba(139,139,139,1) 77%, rgba(0,6,2,1) 100%);background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(61,61,61,1) 56%, rgba(139,139,139,1) 77%, rgba(0,6,2,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000602",GradientType=1);color: var(--w80);}
+        .predict-box .predict-icon{width: 60px;clip-path: polygon(10% 0, 90% 0, 60% 70%, 100% 100%, 0 100%, 40% 70%);background: rgb(0,6,2);background: -moz-linear-gradient(0deg, rgba(0,6,2,1) 0%, rgba(5,73,46,1) 16%, rgba(95,132,115,1) 56%, rgba(181,210,210,1) 77%, rgba(5,73,46,1) 95%, rgba(0,6,2,1) 100%);background: -webkit-linear-gradient(0deg, rgba(0,6,2,1) 0%, rgba(5,73,46,1) 16%, rgba(95,132,115,1) 56%, rgba(181,210,210,1) 77%, rgba(5,73,46,1) 95%, rgba(0,6,2,1) 100%);background: linear-gradient(0deg, rgba(0,6,2,1) 0%, rgba(5,73,46,1) 16%, rgba(95,132,115,1) 56%, rgba(181,210,210,1) 77%, rgba(5,73,46,1) 95%, rgba(0,6,2,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000602",endColorstr="#000602",GradientType=1);}
+        .predict-box button{background: rgba(6,155,100,1);border: 2px solid var(--w50);border-radius: 5px;box-shadow: 10px 10px 10px var(--b50) inset,-10px -10px 10px var(--b60) inset;padding: 0 8px;cursor: pointer;color: var(--w80);}
+        
+        @media screen and (max-width:500px) {
+            body{background: url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
+            .talkbox{height: calc(100% - 464px);}
+            .tv-width{padding: 0;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-0 overflow-hidden">
+        <div class="row w-100 vh100 mx-auto align-items-center justify-content-around">
+            <!-- 動態畫面 START -->
+            <div class="tv-width">
+                <div class="tv-box w-100 position-relative">
+                    <div class="position-absolute tv" style="overflow:hidden;border:0px">
+                        <div id="frameBox"></div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between predict-box px-2">
+                    <button>預測</button>
+                    <div class="d-flex align-items-center h-100"><span>隊伍1</span><span class="predict-icon d-flex align-items-center justify-content-center h-100 mx-3">：</span><span>隊伍2</span></div>
+                    <button>預測</button>
+                </div>
+            </div>
+            <!-- 動態畫面 END -->
+            <!-- 對話框 START -->
+            <div class="talkbox">
+                <div class="msg-box overflow-auto">
+                    <div id="msg" class="px-3 pt-3">
+                        <!-- 別人說話class加msg-l，自己說話class加msg-r -->
+                        <div class="msg-l">別人再說話喔喔喔話喔喔喔喔喔喔喔喔喔喔喔..................</div>
+                        <div class="msg-r">我自己在說話......</div>
+                        <div class="msg-l">別人再說話喔喔喔話喔喔喔喔喔喔喔喔喔喔喔..................</div>
+                        <div class="msg-r">我自己在說話喔喔喔話喔喔......</div>
+                    </div>
+                </div>
+                <div class="input-box d-flex justify-content-between">
+                    <textarea class=""></textarea>
+                    <button class="">Enter</button>
+                </div>
+            </div>
+            <!-- 對話框 END -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script>
+        let iframeCon = document.querySelector('#frameBox')
+        let iframe = document.createElement('iframe');
+            iframe.id = "frame",
+            iframe.name="polling",
+            iframe.width="1920",
+            iframe.height="1080"
+            iframe.scrolling="no",
+            iframe.src="https://sport.zigzagsport.com/SportsBook/Home?token=-&d=d&l=en&tz=&of=0&customCssUrl=&sportsBookView=&clearSiteStyles=false&resetAllStyles=false";
+        iframeCon.appendChild(iframe);
+        iframe.onload= function(){
+            if(window.innerWidth < 440){
+                scale = window.innerWidth / 440;
+                newStyle = "transform: scale(" + scale + ");" 
+                marginL = -1470*scale;
+                marginT = -102*scale;
+                margin ="margin:" + marginT + "px" + " 0 0 " + marginL + "px;"
+                iframeCon.style=margin + newStyle;
+                tvH = document.querySelector('.tv-width').clientHeight;
+                talkbox = document.querySelector('.talkbox');
+                talkbox.style="height:calc(100% - " + tvH + "px);";
+            }
+        }
+    </script>
+</body>
+</html>

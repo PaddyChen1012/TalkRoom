@@ -114,6 +114,7 @@
       padding: 8px;
       border-radius: 5px;
       color: var(--w90);
+      word-break: break-word;
     }
     .msg-l {
       margin-right: auto;
@@ -176,7 +177,7 @@
               <div class="px-3 pt-3">
                 <template v-for='(item, index) in messagelist'>
                   <p v-if='item.type==="user"'>歡迎{{item.nickname}}加入聊天室</p>
-                  <p v-else-if='item.nickname!==nickname' class="msg-l" style="text-align:left">{{item.nickname}}:{{item.value}}</p>
+                  <p v-else-if='item.nickname!==nickname' class="msg-l" style="text-align:left">{{item.nickname}}：<br>{{item.value}}</p>
                   <p v-else class="msg-r" style="text-align:right">{{item.value}}</p>
                 </template>
               </div>
@@ -269,7 +270,6 @@
     socket.on('need login', function () {
       app.nickname = ''
     })
-
   </script>
 </body>
 

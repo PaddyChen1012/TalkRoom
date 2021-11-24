@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-211752776-1&l=dataLayer&cx=c"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="อัพเดทผลบอลสดวินาทีต่อวินาที ส่งตรงถึงหน้าจอคุณ พร้อมพูดคุยแชทสดเกาะติดขอบสนามไปกับทุกคนทั้งประเทศ ทำให้คุณไม่พลาดผลการแข่งขันฟุตบอลทุกลีก ทุกแมตช์ทั่วโลก">
+    <title>NEWS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        :root {
+            --black: rgba(0, 0, 0, 1);
+            --b90: rgba(0, 0, 0, .9);
+            --b80: rgba(0, 0, 0, .8);
+            --b70: rgba(0, 0, 0, .7);
+            --b60: rgba(0, 0, 0, .6);
+            --b50: rgba(0, 0, 0, .5);
+            --b40: rgba(0, 0, 0, .4);
+            --b30: rgba(0, 0, 0, .3);
+            --b20: rgba(0, 0, 0, .2);
+            --b10: rgba(0, 0, 0, .1);
+            --white: rgba(255, 255, 255, 1);
+            --w90: rgba(255, 255, 255, .9);
+            --w80: rgba(255, 255, 255, .8);
+            --w70: rgba(255, 255, 255, .7);
+            --w60: rgba(255, 255, 255, .6);
+            --w50: rgba(255, 255, 255, .5);
+            --w40: rgba(255, 255, 255, .4);
+            --w30: rgba(255, 255, 255, .3);
+            --w20: rgba(255, 255, 255, .2);
+            --w10: rgba(255, 255, 255, .1);
+            --transparent: transparent;
+        }
+
+        body {background: url(images/L.png)no-repeat left/contain, url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
+        header {height: 80px;}
+        .row:after{content: none;}
+        .vh100 {height: 100vh;}
+        .right-r {max-width: none;}
+        .right-box {
+            width: 90%;
+            max-width: 640px;
+            height: 500px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .right-box::before{
+            content:'';
+            position:absolute;
+            bottom:-25%;
+            left:-40%;
+            width:250px;
+            height:250px;
+            background:url(images/soccer_500x500.png)no-repeat center/contain;
+            transform:rotateZ(-60deg);
+            z-index:-1;
+        }
+        .right-box>div{border-radius: 5px;padding: 8px;}
+        .bg-2{height: calc(100% - 28px);background-color: rgba(158, 181, 165, .5);margin-top: 28px;}
+        .card-content{
+            top: -45px;
+            color: var(--w80);
+            text-shadow: 2px 0px 0 rgba(158, 181, 165, .5),2px -2px 0 rgba(158, 181, 165, .5),0px -2px 0 rgba(158, 181, 165, .5),-2px -2px 0 rgba(158, 181, 165, .5),-2px 0px 0 rgba(158, 181, 165, .5);
+            pointer-events: none;
+        }
+
+        /* NewsList */
+        .new-box{padding-right: 8px;}
+        .new-box::-webkit-scrollbar{
+            width:8px;
+            height:8px;
+            background-color: var(--b30);
+            border-radius:15px;
+        }
+        .new-box::-webkit-scrollbar-thumb{
+            border-radius:15px;
+            -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+            background-color: var(--b50);
+        }
+        .news{
+            position: relative;
+            background-color: var(--w40);
+            width: 100%;
+            border-radius: 5px;
+            text-overflow: ellipsis;
+            padding: 4px;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .news:last-child{margin: 0;}
+        .news a{color: var(--b80);}
+
+        .waitpage{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--black);
+            z-index: 100;
+        }
+
+        .back-btn{
+            top: -5%;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            background-color: var(--w50);
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-icon{
+            position: relative;
+            width: 30px;
+            height: 4px;
+            background-color: var(--black);
+            border-radius: 5px;
+        }
+        .back-icon::after,
+        .back-icon::before{
+            content: '';
+            position: absolute;
+            left: 1px;
+            width: 20px;
+            height: 4px;
+            background-color: var(--black);
+            border-radius: 5px;
+            transform-origin: left;
+        }
+        .back-icon::after{transform: rotateZ(45deg);}
+        .back-icon::before{transform: rotateZ(-45deg);}
+
+        @media screen and (max-width:500px) {
+            body {background: url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
+        }
+    </style>
+</head>
+
+<body>
+    <div class="waitpage d-flex align-items-center justify-content-center h1 text-secondary">Loading...</div>
+    <div class="container mx-auto p-0 overflow-hidden">
+        
+        <div class="row position-relative w-100 vh100 mx-auto mb-0 align-items-center justify-content-around">
+            <div class="right-box position-relative d-flex flex-column justify-content-between">
+                <button id="back_btn" class="position-absolute back-btn d-flex align-items-center justify-content-center"><div class="back-icon"></div></button>
+                <div id="new_box" class="bg-2">
+                    <div class="position-relative h-100 d-flex flex-wrap">
+                        <div class="card-content position-absolute text-center w-100">
+                            <span class="card-title h1 font-weight-bold">NEWS</span>
+                        </div>
+                        <div id="newsPlace" class="overflow-auto new-box h-100 w-100">
+                            <div class="position-relative" id="newsList">
+                                <div class="news" v-for="news in newsList"><a v-bind:href="news.url" target="_blank">{{news.title}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+    <script>
+        window.onload = function (){
+            document.querySelector('.waitpage').style = "display:none !important;"
+        }
+    </script>
+    <script type="text/javascript">
+        // newList Vue
+        var app = new Vue({
+            el: '#new_box',
+            data: {
+                newsList:[]
+            },
+            mounted(){
+                axios.get('json/data.json',{}).then(function(response){
+                    app.newsList=response.data;
+                })
+            }
+        })
+    </script>
+    <script>
+        let backBtn = document.querySelector('#back_btn')
+        backBtn.addEventListener('click', backpg)
+        function backpg(){
+            window.close();
+        }
+    </script>
+</body>
+
+</html>

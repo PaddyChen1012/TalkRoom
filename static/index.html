@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-211752776-1&l=dataLayer&cx=c"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://unpkg.com/vue" charset="utf-8"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -14,7 +16,8 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <meta name="description" content="อัพเดทผลบอลสดวินาทีต่อวินาที ส่งตรงถึงหน้าจอคุณ พร้อมพูดคุยแชทสดเกาะติดขอบสนามไปกับทุกคนทั้งประเทศ ทำให้คุณไม่พลาดผลการแข่งขันฟุตบอลทุกลีก ทุกแมตช์ทั่วโลก">
+  <title>ผลบอลสดแบบเรียลไทม์ LIVESCORE ครบทุกคู่ทุกลีก</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <style>
     :root {
@@ -95,10 +98,10 @@
       z-index:-1;
     }
     .right-box>div{border-radius: 5px;padding: 8px;}
-    .bg-2{height: calc(25% - 18px);background-color: rgba(158, 181, 165, .5);margin-top: 18px;}
-    .bg-3{height: calc(75% - 18px);background-color: rgba(158, 181, 165, .5);}
+    .bg-2{height: 52px;background-color: rgba(158, 181, 165, .5);margin-top: 18px;}
+    .bg-3{height: calc(100% - 100px);background-color: rgba(158, 181, 165, .5);}
     .card-content{
-      top: -30px;
+      top: -34px;
       color: var(--w80);
       text-shadow: 2px 0px 0 rgba(158, 181, 165, .5),2px -2px 0 rgba(158, 181, 165, .5),0px -2px 0 rgba(158, 181, 165, .5),-2px -2px 0 rgba(158, 181, 165, .5),-2px 0px 0 rgba(158, 181, 165, .5);
     }
@@ -149,36 +152,13 @@
       box-sizing: border-box !important;
     }
 
-    /* NewsList */
-    .new-box{
-      padding-right: 8px;
+    .news-btn{
+      color: var(--b70);
     }
-    .new-box::-webkit-scrollbar
-    {
-        width:8px;
-        height:8px;
-        background-color: var(--b30);
-        border-radius:15px;
-    }
-    .new-box::-webkit-scrollbar-thumb
-    {
-      border-radius:15px;
-      -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
-      background-color: var(--b50);
-    }
-    .news{
-      position: relative;
-      background-color: var(--w40);
-      width: 100%;
-      border-radius: 5px;
-      text-overflow: ellipsis;
-      padding: 4px;
-      margin-bottom: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .news a{
-      color: var(--b80);
+    .news-btn:hover{
+      color: var(--b70);
+      text-decoration: unset;
+      background-color: var(--w30);
     }
 
     .waitpage{
@@ -189,48 +169,8 @@
       z-index: 100;
     }
 
-    /* tv box */
-    /* .tv-width {
-      background-color: rgba(158, 181, 165, .5);
-      width: 100%;
-      max-width: 272px;
-      border-radius: 5px;
-      box-sizing: content-box;
-      padding: 8px;
-    }
-    .tv-width::before{
-      content:'';
-      position:absolute;
-      top:-40%;
-      left:-20%;
-      width:300px;
-      height:300px;
-      background:url(images/basketball_500x500.png)no-repeat center/contain;
-      transform:rotateY(180deg);
-      z-index: -1;
-    }
-    .tv-box {
-      background-color: var(--b10);
-      padding-bottom: 114%;
-    }
-    .tv {
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-    .tv::-webkit-scrollbar{
-      display: none;
-    }
-    .tv>div {
-      width: 1920px;
-      height: 1080px;
-      margin: -54px 0px 0px -2px;
-      transform-origin: top left;
-    } */
-
     @media screen and (max-width:500px) {
-      body {background: url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
+      body {background: url(images/R.png)no-repeat left/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
       .right-box {height: calc(100% - 464px);}
       .tv-width {padding: 0;}
       .card-content{top: -24px;color: var(--b80);}
@@ -255,14 +195,6 @@
   <div class="container mx-auto p-0 overflow-hidden">
     <div class="row w-100 vh100 mx-auto mb-0 align-items-center justify-content-around">
 
-      <!-- <div id="tvWidth" class="tv-width position-relative">
-        <div class="tv-box w-100 position-relative">
-          <div id="tv" class="position-absolute tv" style="overflow:hidden scroll;border:0px">
-            <div id="frameBox"></div>
-          </div>
-        </div>
-        <button id="tvEnter" class="w-100 mt-2 py-2 enter-btn">Enter</button>
-      </div> -->
 
       <div class="tv-width position-relative">
         <div class="tv-box w-100 position-relative">
@@ -274,16 +206,7 @@
 
       <div class="right-box position-relative d-flex flex-column justify-content-between">
         <div id="new_box" class="bg-2">
-          <div class="position-relative h-100 d-flex flex-wrap">
-            <div class="card-content position-absolute text-center w-100">
-              <span class="card-title h2 font-weight-bold">NEWS</span>
-            </div>
-            <div id="newsPlace" class="overflow-auto new-box h-100 w-100">
-              <div class="position-relative" id="newsList">
-                <div class="news" v-for="news in newsList"><a v-bind:href="news.url" target="_blank">{{news.title}}</a></div>
-              </div>
-            </div>
-          </div>
+          <a href="news.html" class="h2 position-relative h-100 d-flex align-items-center justify-content-center m-0 news-btn" target="_blank">NEWS</a>
         </div>
 
 
@@ -318,6 +241,7 @@
           </div>
         </div>
       </div>
+
 
     </div>
   </div>
@@ -358,35 +282,12 @@
         margin = "margin:" + marginT + "px" + " 0 0 " + marginL + "px;"
         iframeCon.style = margin + newStyle;
         tvH = document.querySelector('.tv').clientHeight;
-        newsPlace = document.querySelector('#newsPlace');
-        newsPlace.style = "overflow:hidden !important;"
-        news();
         talkbox = document.querySelector('.right-box');
         talkbox.style = "height:calc(100% - " + tvH + "px);";
       }
     }
     window.onload = function (){
       document.querySelector('.waitpage').style = "display:none !important;"
-    }
-  </script>
-  <script>
-    function news (){
-      let newsList = document.querySelectorAll('#newsList div');
-      let len = newsList.length - 1;
-      var newsbar = setInterval(newsbar , 2000);
-      let i = 0;
-      function newsbar(){
-        if (i<len){
-          newsList[i].classList.remove('show')
-          i++;
-          newsList[i].classList.add('show')
-        }else{
-          i = 0;
-          newsList[i].classList.add('show')
-          newsList[len].classList.remove('show')
-        }
-        console.log(i)
-      }
     }
   </script>
   <script type="text/javascript">

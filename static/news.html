@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height">
     <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-211752776-1&l=dataLayer&cx=c"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -41,7 +40,7 @@
             --transparent: transparent;
         }
 
-        body {background: url(images/L.png)no-repeat left/contain, url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
+        body {position:fixed;top:-100px;right:0px;bottom:-100px;left:0px;background: url(images/L.png)no-repeat left/contain, url(images/R.png)no-repeat right/contain, url(images/Sport-BN-BG.jpg)no-repeat center/cover;}
         header {height: 80px;}
         .row:after{content: none;}
         .vh100 {height: 100vh;}
@@ -175,7 +174,9 @@
     <script>
         window.onload = function (){
             document.querySelector('.waitpage').style = "display:none !important;"
-            document.body.style.height = window.innerHeight + 'px';
+            document.body.onmousedown = function (){ 
+                return false; 
+            }
         }
     </script>
     <script type="text/javascript">
